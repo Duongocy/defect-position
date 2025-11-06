@@ -1,0 +1,78 @@
+body{
+  background-color: azure;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  width:96vw;
+  height:90vh;
+}
+
+.lens-container{
+  position: relative;
+  /* top: 0;
+  left: 0;  */
+  width: 30%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+}
+.circle-btn {
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: green;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: background 0.2s, transform 0.15s;
+}
+
+.lens-background{
+  position:absolute;
+  width:100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border:3px solid #a02313;
+}
+.submit-btn{
+  position:absolute;
+  width:30%;
+  height:30px;
+  bottom:0;
+  left:20;
+}
+
+async function save_lesson_list_to_database(json_data) {
+  if (json_data.length > 0) {
+    try {
+      const response = await fetch(url_api+'/Invoice?yeucau=savelesson', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(json_data)
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      alert('Lesson saved!');
+      console.log('Server response:', data);
+      load_lesson_list_from_database();
+
+    } catch (error) {
+      alert('Save failed! ' + error);
+      console.error('Error details:', error);
+    }
+  }
+}
