@@ -1,6 +1,6 @@
 const container = document.querySelector('.lens-container');
 const totalButtons = 32;
-const url_api='http://localhost:3003';
+const url_api='https://defect-position-api.onrender.com';
 draw_button();
 update_btn_status;
     
